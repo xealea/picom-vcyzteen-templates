@@ -1,0 +1,32 @@
+# Template file for 'picom-vcyzteen'
+pkgname=picom-vcyzteen
+version=1.0
+revision=5
+wrksrc=picom-yshui
+build_style=meson
+configure_args="-Dwith_docs=true"
+hostmakedepends="git pkg-config asciidoc"
+makedepends="MesaLib-devel dbus-devel libconfig-devel libev-devel pcre-devel
+ pixman-devel xcb-util-image-devel xcb-util-renderutil-devel
+ libxdg-basedir-devel uthash"
+depends="desktop-file-utils"
+short_desc="Lightweight compositor for X11 (previously a picom fork)"
+maintainer="Frank Steinborn <steinex@nognu.de>"
+license="MIT, MPL-2.0"
+homepage="https://github.com/vcyzteen/picom.git"
+
+do_fetch() {
+  git clone --single-branch --branch next-yshui --depth=1 "https://github.com/vcyzteen/picom.git" ${wrksrc}
+}
+
+post_install() {
+	vlicense LICENSES/MIT
+	vsconf picom.sample.conf
+}
+
+picom-ibhagwan_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	build_style=meta
+	short_desc+=" (transitional dummy package)"
+}
+
