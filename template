@@ -24,7 +24,7 @@ post_install() {
 	vsconf picom.sample.conf
 }
 
-picom-ibhagwan_package() {
+picom-vcyzteen_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
 	build_style=meta
 	short_desc+=" (transitional dummy package)"
